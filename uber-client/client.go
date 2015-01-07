@@ -6,6 +6,14 @@ import (
 	"github.com/anweiss/uber-api-golang/uber"
 	"io/ioutil"
 	"log"
+	"strconv"
+)
+
+const (
+	WhiteHouseLat  float64 = 38.897939
+	WhiteHouseLong float64 = -77.036541
+	USCapitolLat   float64 = 38.890152
+	USCapitolLong  float64 = -77.009096
 )
 
 func main() {
@@ -25,8 +33,8 @@ func main() {
 
 	// Retrieve products based on lat/long coords
 	pl := &uber.Products{}
-	pl.Latitude = 38.897939
-	pl.Longitude = -77.036541
+	pl.Latitude = WhiteHouseLat
+	pl.Longitude = WhiteHouseLong
 	if e := client.Get(pl); e != nil {
 		log.Fatal(e)
 	}
@@ -38,18 +46,31 @@ func main() {
 
 	// Retrieve price estimates based on start and end lat/long coords
 	pe := &uber.PriceEstimates{}
-	pe.StartLatitude = 38.897939
-	pe.StartLongitude = -77.036541
-	pe.EndLatitude = 38.890152
-	pe.EndLongitude = -77.009096
+	pe.StartLatitude = WhiteHouseLat
+	pe.StartLongitude = WhiteHouseLong
+	pe.EndLatitude = USCapitolLat
+	pe.EndLongitude = USCapitolLong
 	if e := client.Get(pe); e != nil {
 		log.Fatal(e)
 	}
 
 	fmt.Println("\nHere are the Uber price estimates from The White House to the United States Capitol: \n")
-	for n, price := range pe.Prices {
+	for _, price := range pe.Prices {
 		fmt.Println(price.DisplayName + ": " + price.Estimate)
-		if n == len(pe.Prices)-1 {
+	}
+
+	// Retrieve ETA estimates based on start lat/long coords
+	te := &uber.TimeEstimates{}
+	te.StartLatitude = WhiteHouseLat
+	te.StartLongitude = WhiteHouseLong
+	if e := client.Get(te); e != nil {
+		log.Fatal(e)
+	}
+
+	fmt.Println("\nHere are the Uber ETA estimates if leaving from The White House: \n")
+	for n, eta := range te.Times {
+		fmt.Println(eta.DisplayName + ": " + strconv.Itoa(eta.Estimate/60))
+		if n == len(te.Times)-1 {
 			fmt.Print("\n")
 		}
 	}

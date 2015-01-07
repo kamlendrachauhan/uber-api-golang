@@ -27,7 +27,7 @@ type PriceEstimate struct {
 	Distance        float32 `json:"distance"`
 }
 
-// Internal method that implements the getter interface
+// Internal method that implements the Getter interface
 func (pe *PriceEstimates) get(c *Client) error {
 	priceEstimateParams := map[string]string{
 		"start_latitude":  strconv.FormatFloat(pe.StartLatitude, 'f', 2, 32),

@@ -42,17 +42,8 @@ func Create(options *RequestOptions) *Client {
 
 // Get formulates an HTTP GET request based on the Uber endpoint type
 func (c *Client) Get(getter Getter) error {
-	switch t := getter.(type) {
-	case *Products:
-		if e := getter.get(c); e != nil {
-			return e
-		}
-	case *PriceEstimates:
-		if e := getter.get(c); e != nil {
-			return e
-		}
-	default:
-		_ = t
+	if e := getter.get(c); e != nil {
+		return e
 	}
 
 	return nil
