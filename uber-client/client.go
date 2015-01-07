@@ -56,7 +56,7 @@ func main() {
 
 	fmt.Println("\nHere are the Uber price estimates from The White House to the United States Capitol: \n")
 	for _, price := range pe.Prices {
-		fmt.Println(price.DisplayName + ": " + price.Estimate)
+		fmt.Println(price.DisplayName + ": " + price.Estimate + "; Surge: " + strconv.FormatFloat(price.SurgeMultiplier, 'f', 2, 32))
 	}
 
 	// Retrieve ETA estimates based on start lat/long coords

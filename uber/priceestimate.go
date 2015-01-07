@@ -22,9 +22,9 @@ type PriceEstimate struct {
 	Estimate        string  `json:"estimate"`
 	LowEstimate     int     `json:"low_estimate"`
 	HighEstimate    int     `json:"high_estimate"`
-	SurgeMultiplier float32 `json:"surge_multiplier"`
+	SurgeMultiplier float64 `json:"surge_multiplier"`
 	Duration        int     `json:"duration"`
-	Distance        float32 `json:"distance"`
+	Distance        float64 `json:"distance"`
 }
 
 // Internal method that implements the Getter interface
