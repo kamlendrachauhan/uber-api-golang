@@ -47,7 +47,10 @@ func main() {
 	}
 
 	fmt.Println("\nHere are the Uber price estimates from The White House to the United States Capitol: \n")
-	for _, price := range pe.Prices {
+	for n, price := range pe.Prices {
 		fmt.Println(price.DisplayName + ": " + price.Estimate)
+		if n == len(pe.Prices)-1 {
+			fmt.Print("\n")
+		}
 	}
 }
