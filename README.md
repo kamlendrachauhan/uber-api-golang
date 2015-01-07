@@ -15,6 +15,8 @@ here: [https://developer.uber.com/](https://developer.uber.com/).
 
 ## Usage
 
+Full usage info can be found in the [godocs](https://godoc.org/github.com/anweiss/uber-api-golang/uber).
+
 A sample client has been included with this source that demonstrates its usage. The package import path is `github.com/anweiss/uber-api-golang/uber`. The package requires the creation of a `Client` type with a set of `RequestOptions`. The `RequestOptions` type holds the token and OAuth parameters.
 
 ```go
@@ -39,5 +41,14 @@ pl.Latitude = LAT
 pl.Longitude = LONG
 if e := client.Get(p1); e != nil {
   log.Fatal(e)
+}
+```
+
+The products are retrieved and stored in the `Products` property.
+
+```go
+fmt.Println("Here are the Uber options available for your area: \n")
+for _, product := range pl.Products {
+  fmt.Println(product.DisplayName + ": " + product.Description)
 }
 ```
