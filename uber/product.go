@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-// List of Uber products
+// List of Uber products with given lat/long coords
 type Products struct {
 	Latitude  string
 	Longitude string
@@ -20,7 +20,7 @@ type Product struct {
 	Image       string `json:"image"`
 }
 
-// Products list method that implements the Lister interface
+// Internal method that implements the getter interface
 func (pl *Products) get(c *Client) error {
 	productParams := map[string]string{
 		"server_token": c.Options.ServerToken,
