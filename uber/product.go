@@ -2,12 +2,13 @@ package uber
 
 import (
 	"encoding/json"
+	"strconv"
 )
 
 // List of Uber products with given lat/long coords
 type Products struct {
-	Latitude  string
-	Longitude string
+	Latitude  float64
+	Longitude float64
 	Products  []Product `json:"products"`
 }
 
@@ -23,12 +24,11 @@ type Product struct {
 // Internal method that implements the getter interface
 func (pl *Products) get(c *Client) error {
 	productParams := map[string]string{
-		"server_token": c.Options.ServerToken,
-		"latitude":     pl.Latitude,
-		"longitude":    pl.Longitude,
+		"latitude":  strconv.FormatFloat(pl.Latitude, 'f', 2, 32),
+		"longitude": strconv.FormatFloat(pl.Longitude, 'f', 2, 32),
 	}
 
-	data := getRequest(&productParams)
+	data := c.getRequest("products", productParams)
 	if e := json.Unmarshal(data, &pl); e != nil {
 		return e
 	}

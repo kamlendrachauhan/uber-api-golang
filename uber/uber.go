@@ -9,7 +9,7 @@ import (
 
 const (
 	// Uber API endpoint
-	APIUrl string = "https://api.uber.com/v1/%s"
+	APIUrl string = "https://api.uber.com/v1/%s%s"
 )
 
 type getter interface {
@@ -45,7 +45,10 @@ func (c *Client) Get(getter getter) error {
 		if e := getter.get(c); e != nil {
 			return e
 		}
-
+	case *PriceEstimates:
+		if e := getter.get(c); e != nil {
+			return e
+		}
 	default:
 		_ = t
 	}
@@ -54,16 +57,17 @@ func (c *Client) Get(getter getter) error {
 }
 
 // Send HTTP request to Uber API
-func getRequest(params *map[string]string) []byte {
+func (c *Client) getRequest(endpoint string, params map[string]string) []byte {
 	urlParams := "?"
-	for k, v := range *params {
+	params["server_token"] = c.Options.ServerToken
+	for k, v := range params {
 		if len(urlParams) > 1 {
 			urlParams += "&"
 		}
 		urlParams += fmt.Sprintf("%s=%s", k, v)
 	}
 
-	url := fmt.Sprintf(APIUrl, "products"+urlParams)
+	url := fmt.Sprintf(APIUrl, endpoint, urlParams)
 
 	res, err := http.Get(url)
 	if err != nil {
