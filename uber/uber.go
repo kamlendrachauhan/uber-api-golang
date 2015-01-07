@@ -1,3 +1,4 @@
+// Package uber provides a client library for the Uber API
 package uber
 
 import (
@@ -12,6 +13,7 @@ const (
 	APIUrl string = "https://api.uber.com/v1/%s%s"
 )
 
+// getter defines the behavior for all HTTP Get requests
 type getter interface {
 	get(c *Client) error
 }
