@@ -1,0 +1,5 @@
+image: golang:latest
+env:
+  - GOPATH=/var/cache/drone
+script:
+  - go build github.com/anweiss/uber-api-golang/uber

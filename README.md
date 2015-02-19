@@ -1,7 +1,7 @@
 Golang SDK for the Uber API
 ===============
 
-[![GoDoc](https://godoc.org/github.com/anweiss/uber-api-golang/uber?status.svg)](https://godoc.org/github.com/anweiss/uber-api-golang/uber)
+[![GoDoc](https://godoc.org/github.com/anweiss/uber-api-golang/uber?status.svg)](https://godoc.org/github.com/anweiss/uber-api-golang/uber) [![Build Status](https://ci.weisslabs.info/api/badge/github.com/anweiss/uber-api-golang/status.svg?branch=master)](https://ci.weisslabs.info/github.com/anweiss/uber-api-golang)
 
 This package provides an SDK for use with the Uber API. Currently, the following API endpoints are supported:
 - Products
